@@ -10,7 +10,21 @@ from models.movie import Movie as MovieModel
 from fastapi.encoders import jsonable_encoder
 from middlewares.error_handler import ErrorHandler
 
+
+
 movie_router=APIRouter()
+Base.metadata.create_all(bind=engine)
+
+class JWTBearer(HTTPBearer):
+    async def __call__(self, request: Request):
+        auth = await super().__call__(request)
+        data = validate_token(auth.credentials)
+        if data['email'] != "admin@gmail.com":
+            raise HTTPException(status_code=403, detail="Credenciales son invalidas")
+
+class User(BaseModel):
+    email: str
+    password: str
 
 class Movie(BaseModel):
     id: Optional[int]=None
@@ -33,15 +47,7 @@ class Movie(BaseModel):
         }
 
 
-@movie_router.get('/', tags=['home'])
-def message():
-    return HTMLResponse('<h1>Hello world</h1>')
 
-@movie_router.post('/login', tags=['auth'])
-def login(user: User):
-    if user.email == "admin@gmail.com" and user.password == "root":
-        token: str = create_token(user.dict())
-        return JSONResponse(status_code=200, content={"token": token})
 
 @movie_router.get('/movies', tags=['movies'], response_model=List[Movie], status_code=200, dependencies=[Depends(JWTBearer())])
 def get_movies() -> List[Movie]:
@@ -121,11 +127,18 @@ def update_movie(id: int, movie: Movie) -> dict:
         db.close()
 
 @movie_router.delete('/movies/{id}', tags=['movies'], response_model=dict, status_code=200)
-def delete_movie(id: int)-> dict:
-    db=Session()
-    result = db.query(MovieModel).filter(MovieModel.id == id).first()
-    if not result:
-        return JSONResponse(status_code=404)
-    db.delete()
-    db.commit()    
-    return JSONResponse(status_code=200, content={"message": "Se ha eliminado la película"})
+def delete_movie(id: int) -> dict:
+    db = Session()
+    try:
+        result = db.query(MovieModel).filter(MovieModel.id == id).first()
+        if not result:
+            return JSONResponse(status_code=404, content={"message": "Movie not found"})
+        
+        db.delete(result)
+        db.commit()
+        return JSONResponse(status_code=200, content={"message": "Se ha eliminado la película"})
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
