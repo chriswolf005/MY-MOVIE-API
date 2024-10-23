@@ -22,53 +22,55 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
    ```bash
    git clone https://github.com/chriswolf005/MY-MOVIE-API.git
    cd MY-MOVIE-API
-Crea un entorno virtual:
+### Crea un entorno virtual:
 
-bash
-Copy code
+```bash
 python -m venv venv
 Activa el entorno virtual:
-
-En Windows:
-bash
-Copy code
+```
+-En Windows:
+```bash
 venv\Scripts\activate
-En MacOS/Linux:
-bash
-Copy code
+```
+-En MacOS/Linux:
+```bash
 source venv/bin/activate
-Instala las dependencias:
+```
+### Instala las dependencias:
 
-bash
-Copy code
+```bash
+
 pip install -r requirements.txt
-⚙️ Uso
+```
+### ⚙️ Uso
 Para ejecutar la API, utiliza el siguiente comando:
 
 bash
-Copy code
+```
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
-Una vez que el servidor esté en funcionamiento, visita http://localhost:8000/docs para ver la documentación interactiva de la API. 🖥️
+```
+- Una vez que el servidor esté en funcionamiento, visita http://localhost:8000/docs para ver la documentación interactiva de la API. 🖥️
 
-🗂 Endpoints
+## 🗂 Endpoints
 Películas
-GET /movies: Obtener todas las películas.
-GET /movies/{id}: Obtener una película específica por ID.
-POST /movies: Agregar una nueva película.
-PUT /movies/{id}: Actualizar una película existente por ID.
-DELETE /movies/{id}: Eliminar una película por ID.
-🧪 Pruebas
+- **GET /movies: Obtener todas las películas.
+- **GET /movies/{id}: Obtener una película específica por ID.
+- **POST /movies: Agregar una nueva película.
+- **PUT /movies/{id}: Actualizar una película existente por ID.
+- **DELETE /movies/{id}: Eliminar una película por ID.
+## 🧪 Pruebas
 Para ejecutar las pruebas, puedes usar:
 
-bash
-Copy code
+```bash
+
 pytest
-📄 Contribuciones
-Las contribuciones son bienvenidas. Siéntete libre de abrir un issue o enviar un pull request. 😊
+```
+## 📄 Contribuciones
+**Las contribuciones son bienvenidas. Siéntete libre de abrir un issue o enviar un pull request. 😊
 
-📧 Contacto
-Si tienes preguntas o sugerencias, no dudes en contactarme:
+## 📧 Contacto
+**Si tienes preguntas o sugerencias, no dudes en contactarme:
 
-GitHub: chriswolf005
-Email: c.sanchezgarcia1999@gmail.com
-¡Gracias por tu interés en MY-MOVIE-API! 🌟
+- **GitHub: chriswolf005
+- **Email: c.sanchezgarcia1999@gmail.com
+**¡Gracias por tu interés en MY-MOVIE-API! 🌟
