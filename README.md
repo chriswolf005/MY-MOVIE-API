@@ -53,11 +53,11 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ## 🗂 Endpoints
 Películas
-- **GET /movies: Obtener todas las películas.
-- **GET /movies/{id}: Obtener una película específica por ID.
-- **POST /movies: Agregar una nueva película.
-- **PUT /movies/{id}: Actualizar una película existente por ID.
-- **DELETE /movies/{id}: Eliminar una película por ID.
+- **GET /movies: Obtener todas las películas**.
+- **GET /movies/{id}: Obtener una película específica por ID**.
+- **POST /movies: Agregar una nueva película**.
+- **PUT /movies/{id}: Actualizar una película existente por ID**.
+- **DELETE /movies/{id}: Eliminar una película por ID**.
 ## 🧪 Pruebas
 Para ejecutar las pruebas, puedes usar:
 
@@ -66,11 +66,11 @@ Para ejecutar las pruebas, puedes usar:
 pytest
 ```
 ## 📄 Contribuciones
-**Las contribuciones son bienvenidas. Siéntete libre de abrir un issue o enviar un pull request. 😊
+**Las contribuciones son bienvenidas. Siéntete libre de abrir un issue o enviar un pull request**. 😊
 
 ## 📧 Contacto
 **Si tienes preguntas o sugerencias, no dudes en contactarme:
 
-- **GitHub: chriswolf005
-- **Email: c.sanchezgarcia1999@gmail.com
-**¡Gracias por tu interés en MY-MOVIE-API! 🌟
+- **GitHub: chriswolf005**.
+- **Email: c.sanchezgarcia1999@gmail.com**.
+**¡Gracias por tu interés en MY-MOVIE-API!** 🌟
