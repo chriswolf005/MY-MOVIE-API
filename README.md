@@ -69,8 +69,9 @@ pytest
 **Las contribuciones son bienvenidas. Siéntete libre de abrir un issue o enviar un pull request**. 😊
 
 ## 📧 Contacto
-**Si tienes preguntas o sugerencias, no dudes en contactarme:
+**Si tienes preguntas o sugerencias, no dudes en contactarme**:
 
 - **GitHub: chriswolf005**.
 - **Email: c.sanchezgarcia1999@gmail.com**.
+  
 **¡Gracias por tu interés en MY-MOVIE-API!** 🌟
