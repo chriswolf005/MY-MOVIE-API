@@ -4,15 +4,18 @@ from pydantic import BaseModel, Field
 from typing import Optional, List
 from jwt_manager import create_token, validate_token
 from fastapi.security import HTTPBearer
-from config.database import Session, engie, Base
+from config.database import Session, engine, Base
 from models.movie import Movie as MovieModel
 from fastapi.encoders import jsonable_encoder
+from middlewares.error_handler import ErrorHandler
 
 app = FastAPI()
 app.title = "My first app with FastAPI"
 app.version = '0.01'
 
-Base.metadata.create_all(bind=engie)
+app.add_middleware(ErrorHandler)
+
+Base.metadata.create_all(bind=engine)
 
 class JWTBearer(HTTPBearer):
     async def __call__(self, request: Request):
@@ -191,3 +194,37 @@ def create_movie(movie: Movie) -> dict:
         return JSONResponse(content={"message": "Se ha registrado la película🍿🎥", "movie_id": new_movie.id}, status_code=201)
     finally:
         db.close() 
+
+@app.put('/movies/{id}', tags=['movies'], response_model=dict, status_code=200)
+def update_movie(id: int, movie: Movie) -> dict:
+    db = Session()
+    try:
+        result = db.query(MovieModel).filter(MovieModel.id == id).first()
+        if not result:
+            return JSONResponse(status_code=404, content={"message": "Película no encontrada"})
+        
+        result.title = movie.title
+        result.overview = movie.overview
+        result.year = movie.year
+        result.rating = movie.rating
+        result.category = movie.category
+
+        db.commit()
+        db.refresh(result)
+        
+        return JSONResponse(status_code=200, content={"message": "Se ha modificado la película"})
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
+@app.delete('/movies/{id}', tags=['movies'], response_model=dict, status_code=200)
+def delete_movie(id: int)-> dict:
+    db=Session()
+    result = db.query(MovieModel).filter(MovieModel.id == id).first()
+    if not result:
+        return JSONResponse(status_code=404)
+    db.delete()
+    db.commit()    
+    return JSONResponse(status_code=200, content={"message": "Se ha eliminado la película"})
