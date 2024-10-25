@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Body, Path, Query, Request, HTTPExceptio
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List
-from jwt_manager import create_token, validate_token
+from utils.jwt_manager import create_token, validate_token
 from fastapi.security import HTTPBearer
 from config.database import Session, engine, Base
 from models.movie import Movie as MovieModel
